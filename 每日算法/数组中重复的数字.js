@@ -7,60 +7,60 @@ var findRepeatNumber = function(nums) {
     // 暴力法，直接双重循环
 
     // 方法1
-    // var map = new Map();
-    // var arr = [];
-    // for(var i = 0; i < nums.length; i++){
-    //     var value = nums[i];
-    //     if(map.has(value)){
-    //         arr.push(value);
-    //     }
-    //     else {
-    //         map.set(value, value);
-    //     }
-    // }
-    // var random = Math.floor(Math.random()*(arr.length - 1));
-    // return arr[random];
+    var map = new Map();
+    var arr = [];
+    for(var i = 0; i < nums.length; i++){
+        var value = nums[i];
+        if(map.has(value)){
+            arr.push(value);
+        }
+        else {
+            map.set(value, value);
+        }
+    }
+    var random = Math.floor(Math.random()*(arr.length - 1));
+    return arr[random];
 
     // 方法1简易版 使用哈希表
     // 哈希表的结构是：number-boolean，number 就是数组中的数字，boolean 代表数字是否出现过。
     // 整体的流程是：遍历数组中的数字，检查是否出现过，如果出现过，那么返回此数字。
-    // var map = {};
-    // var arr = [];
-    // for (const i of nums) {
-    //     if(!map[i]){
-    //         map[i] = true;
-    //     }else{
-    //         arr.push(i);
-    //     }
-    // }
-    // var random = Math.floor(Math.random()*(arr.length - 1));
-    // return arr[random];
+    var map = {};
+    var arr = [];
+    for (const i of nums) {
+        if(!map[i]){
+            map[i] = true;
+        }else{
+            arr.push(i);
+        }
+    }
+    var random = Math.floor(Math.random()*(arr.length - 1));
+    return arr[random];
 
     // 方法2 不行，时间太长
-    // var arr = [];
-    // while(nums.length){
-    //     var value = nums[0];
-    //     nums.shift();
-    //     if(nums.includes(value)){
-    //         arr.push(value);
-    //     }
-    // }
-    // var random = Math.floor(Math.random()*(arr.length - 1));
-    // return arr[random];
+    var arr = [];
+    while(nums.length){
+        var value = nums[0];
+        nums.shift();
+        if(nums.includes(value)){
+            arr.push(value);
+        }
+    }
+    var random = Math.floor(Math.random()*(arr.length - 1));
+    return arr[random];
 
     // 方法 3 使用Set集合来处理
-    // var arr = [];
-    // var s = new Set();
-    // for (const i in nums) {
-    //     var curlen = s.size;
-    //     s.add(nums[i]);
-    //     if(s.size == curlen){
-    //          如果每次在集合中添加了该元素后对应的长度和添加之前相同，说明添加的是重复的数据
-    //         arr.push(nums[i]);
-    //     }
-    // }
-    // var random = Math.floor(Math.random()*(arr.length - 1));
-    // return arr[random];
+    var arr = [];
+    var s = new Set();
+    for (const i in nums) {
+        var curlen = s.size;
+        s.add(nums[i]);
+        if(s.size == curlen){
+             如果每次在集合中添加了该元素后对应的长度和添加之前相同，说明添加的是重复的数据
+            arr.push(nums[i]);
+        }
+    }
+    var random = Math.floor(Math.random()*(arr.length - 1));
+    return arr[random];
 
     // 方法4 原地哈希
     var map = {};
