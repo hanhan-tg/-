@@ -1,8 +1,6 @@
 // https://leetcode-cn.com/problems/subsets/
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
+
+//  方法一
 var subsets = function(nums) {
     const res = [];
 
@@ -20,6 +18,8 @@ var subsets = function(nums) {
     dfs(0, []);
     return res;
 };
+
+// 方法二
 var subsets = function(nums) {
     const res = [];
 
