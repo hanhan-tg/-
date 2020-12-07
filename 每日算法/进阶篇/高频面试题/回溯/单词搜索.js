@@ -7,6 +7,12 @@
  * @return {boolean}
  */
 var exist = function(board, word) {
+
+    /**
+     * 思路： 回溯
+     * 
+     */
+
     const m = board.length;
     const n = board[0] .length;
     const arr = new Array(m); // 同样大小的数组来为每个点是否已用做标记
