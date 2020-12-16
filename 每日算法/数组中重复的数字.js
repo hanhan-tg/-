@@ -55,7 +55,7 @@ var findRepeatNumber = function(nums) {
         var curlen = s.size;
         s.add(nums[i]);
         if(s.size == curlen){
-             如果每次在集合中添加了该元素后对应的长度和添加之前相同，说明添加的是重复的数据
+            //  如果每次在集合中添加了该元素后对应的长度和添加之前相同，说明添加的是重复的数据
             arr.push(nums[i]);
         }
     }
