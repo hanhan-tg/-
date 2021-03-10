@@ -78,14 +78,15 @@ var findBottomLeftValue = function(root) {
     return res;
 
     function dfs(cur, depth) {
-    if (!cur) {
-        return;
-    }
-    const curDepth = depth + 1;
-    if (curDepth > maxDepth) {
-        maxDepth = curDepth;
-        res = cur.val;
-    }
+        if (!cur) {
+            return;
+        }
+        const curDepth = depth + 1;
+        // 核心所在，第一个出现的更深的节点就是那个层左节点，深度最深，则是最左
+        if (curDepth > maxDepth) {
+            maxDepth = curDepth;
+            res = cur.val;
+        }
         dfs(cur.left, curDepth);
         dfs(cur.right, curDepth);
     }
