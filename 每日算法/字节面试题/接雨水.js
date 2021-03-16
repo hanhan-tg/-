@@ -1,5 +1,69 @@
 // https://leetcode-cn.com/problems/trapping-rain-water/
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function(height) {
+    // 双指针
+    // 思路：头尾指针往中间走，当左指针往右走的时候，默认当前当前位置右边的有个比较高的点比左边的最高点还要高
+    //      这样对于这个点的储水量只要通过计算左边的最高点减去当前位置的高度就可以了
+    //      同理，右边往左走也是，默认当前点左边某个高度比右边最高的还高，就可以通过右边的最高点减去当前位置的高度得到储水量
+    //      而左边最高点和右边最高点只会有一个更高，当左边比右边高的时候，就右指针移动，当移动到某个位置的高度比左边高，
+    //      则就回到左边走
+    //      这样就能保证我只要知道一个方向的最高点就可以计算出储水量
+    let left = 0,
+        right = height.length - 1,
+        left_max = height[left],
+        right_max = height[right],
+        ans = 0;
 
+    while(left <= right){
+        if(left_max <= right_max){
+            if(height[left] >= left_max){
+                left_max = height[left];
+            }else{
+                // 如果当前的值比左边最大值小，则当前可以积水
+                ans += left_max - height[left];
+            }
+            left++;
+        }else{
+            if(height[right] >= right_max){
+                right_max = height[right];
+            }else{
+                ans += right_max - height[right];
+            }
+            right--;
+        }
+    }
+    return ans;
+    // O(n)
+    // O(1)
+};
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function(height) {
+    // 动态规划
+    // 从左往右遍历一遍，找出当前点左边的最高值(包括自身)
+    // 从右往左遍历一遍，找出当前点右边的最高值(包括自身)
+    // 再从头开始遍历，当前点可以储存的量为两个最高点的小值减去当前高度
+    let leftArr = [];
+    let rightArr = [];
+    let ans = 0;
+    const len = height.length;
+    leftArr[0] = height[0];
+    rightArr[len - 1] = height[len - 1];
+    for(let i = len - 2; i >= 0; i --){
+        rightArr[i] = Math.max(height[i], rightArr[i + 1]);
+    }
+    for(let i = 1; i < len; i++){
+        leftArr[i] = Math.max(height[i], leftArr[i - 1]);
+        // 这里的计算可以在这次循环一起计算，可以节省一次循环的时间
+        ans += Math.min(leftArr[i], rightArr[i]) - height[i];
+    }
+    return ans;
+};
 var trap = function(height) {
     // 对于每个点来说，他当前点能接水的量为其左边最高点和其右边最高点的更小的那个减去当前点的高度即可
     let sum = 0;
