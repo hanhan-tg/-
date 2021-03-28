@@ -19,12 +19,16 @@ var buildTree = function(preorder, inorder) {
     if(preorder == null || inorder == null || preorder.length != inorder.length || preorder.length == 0 || inorder.length == 0) return ;
     var root = new TreeNode(preorder[0]);
     var index = inorder.indexOf(root.val);// 得到根节点在中序遍历中的位置
-    var zhongLeft = inorder.slice(0, index);
-    var zhongRight = inorder.slice(index + 1, inorder.length);
-    var qianLeft = preorder.slice(1, index + 1);
-    var qianRight = preorder.slice(index + 1, preorder.length);
-    root.left = buildTree(qianLeft, zhongLeft);
-    root.right = buildTree(qianRight, zhongRight);
+
+    var leftIn = inorder.slice(0, index);
+    var rightIn = inorder.slice(index + 1, inorder.length);
+
+    var leftPre = preorder.slice(1, index + 1);
+    var rightPre = preorder.slice(index + 1, preorder.length);
+
+    root.left = buildTree(leftPre, leftIn);
+    root.right = buildTree(rightPre, rightIn);
+    
     return root;
 };
 
