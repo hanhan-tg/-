@@ -18,6 +18,13 @@ var maxValue = function(grid) {
             dp[j] = Math.max(up, left) + grid[i][j];
         }
     }
+    // const dp = new Array(n + 1).fill(0)
+
+    // for (let i = 0; i <= m; i++) {
+    //     for (let j = 0; j <= n; j++) {
+    //         dp[j] = Math.max(dp[j], j == 0 ? 0 : dp[j - 1]) + grid[i][j];
+    //     }
+    // }
     console.log(dp)
     return dp[n]; 
     // O(N)
@@ -38,6 +45,13 @@ var maxValue = function(grid) {
             else grid[i][j] += Math.max(grid[i-1][j], grid[i][j-1]);
         }
     }
+    // for (let i = 0; i <= m; i++) {
+    //     for (let j = 0; j <= n; j++) {
+    //         const up = i == 0 ? 0 : grid[i - 1][j];
+    //         const left = j == 0 ? 0 : grid[i][j - 1]
+    //         grid[i][j] = Math.max(up, left) + grid[i][j];
+    //     }
+    // }
     return grid[m][n];
     // O(n)
     // O(1)

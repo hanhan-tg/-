@@ -21,3 +21,49 @@ var wordBreak = function(s, wordDict) {
     // O(n^2)
     // O(n)
 };
+
+/**
+ * @param {string} s
+ * @param {string[]} wordDict
+ * @return {boolean}
+ */
+ var wordBreak = function(s, wordDict) {
+    // DFS
+    // 小笨猪
+    const len = s.length;
+    const memo = new Array(len); // 记忆化数组
+    const canBreak = (start) => {
+        if(start === len) return true;
+        if(memo[start] !== undefined) return memo[start];
+    
+        for(let i = start + 1; i <= len; i++) {
+            const prefix = s.slice(start, i);
+            if(wordDict.includes(prefix) && canBreak(i)) {
+                memo[i] = true;
+                return true;
+            }
+        }
+        memo[start] = false;
+        return false;
+    }
+    return canBreak(0)
+};
+const wordBreak = (s, wordDict) => {
+    // 小笨猪
+    // 动态规划
+    const wordSet = new Set(wordDict);
+    const len = s.length;
+    const dp = new Array(len + 1).fill(false);
+    dp[0] = true;
+  
+    for (let i = 1; i <= len; i++) {
+      for (let j = i - 1; j >= 0; j--) {    // j去划分成两部分
+        const suffix = s.slice(j, i);       // 后缀部分 s[j: i-1]
+        if (wordSet.has(suffix) && dp[j]) { // 后缀部分是单词，且左侧子串[0,j-1]的dp[j]为真
+          dp[i] = true;
+          break;  // dp[i] = true了，i长度的子串已经可以拆成单词了，不需要j继续划分子串了
+        }
+      }
+    }
+    return dp[len];
+  };

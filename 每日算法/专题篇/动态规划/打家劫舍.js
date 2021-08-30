@@ -1,6 +1,29 @@
 // https://leetcode-cn.com/problems/house-robber/
 
 var rob = function(nums) {
+    // dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+    const dp = new Array(nums.length);
+    dp[-1] = 0;
+    dp[0] = nums[0]
+    for(let i = 1; i < nums.length; i++) {
+        dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+    }
+    return dp[nums.length - 1]
+};
+var rob = function(nums) {
+    // dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+    // 上面对应的滚动数组
+    let num1 = 0;
+    let num2 = nums[0];
+    let max = num2;
+    for(let i = 1; i < nums.length; i++) {
+        max = Math.max(num1 + nums[i], num2);
+        num1 = num2;
+        num2 = max;
+    }
+    return max
+};
+var rob = function(nums) {
     // 竟然一次就AC了，我哭辽
 
     // 对于dp[i] 来说，dp[i]取得最大值的方式就是除了不能偷相邻的i-1，dp[0...i-2]，取之间最大值再加上nums[i] 就等于dp[i]
