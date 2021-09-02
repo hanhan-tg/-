@@ -2,17 +2,36 @@
 
 // https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/solution/mian-shi-ti-48-zui-chang-bu-han-zhong-fu-zi-fu-d-9/
 /**
- * @param {string} s
- * @return {number}
- */
-
-var lengthOfLongestSubstring = function(s) {
-    if(s.length == 0 || s.length === 1) return s.length;
+* @param {string} s
+* @return {number}
+*/
+var lengthOfLongestSubstring = function (s) {
     // 动态规划
-    // dp[i] = 如果往回走dp[i - 1]长度没有碰到s[i]则 dp[i - 1] + 1，不然就为碰到时 差值+1
-    // 可以不需要数组实现
-
-    // 不想写，没实现，思路很明确
+    // dp[i]表示以i结尾的不重复字符串的长度
+    // 用一个变量temp记录该字符串的长度
+    let temp = 0;
+    let len = 0;
+    const hash = {};
+    for (let j = 0; j < s.length; j++) {
+        let i = hash[s[j]] ? hash[s[j]] : -1;
+        hash[s[j]] = j;
+        temp = temp < j - i ? temp + 1 : j - i; // 如果是等于，则temp不应该改变
+        len = Math.max(len, temp);
+    }
+    return len;
+};
+var lengthOfLongestSubstring = function (s) {
+   let len = 0;
+   temp = 0;
+   for (let i = 0; i < s.length; i++) {
+       let j = i - 1;
+       while (j >= 0 && s[j] !== s[i]) j--;
+       // 此时拿到了上一个s[i]的位置
+       // temp+1表示当前串能继续增长，i-j表示出现重复后串变短了，要从此处开始走
+       temp = temp < i - j ?  temp + 1 : i - j; 
+       len = Math.max(temp, len);
+   }
+   return len;
 };
 
 var lengthOfLongestSubstring = function(s) {
