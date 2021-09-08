@@ -32,3 +32,30 @@ var isStraight = function (nums) {
   }
   return nums[4] - nums[joker] < 5
 };
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+ var isStraight = function (nums) {
+  nums.sort((a, b) => a - b);
+  // 排序后硬比较，看看就得了
+  let t = 0;
+  for (let i = 0; i < nums.length - 1; i++) {
+      if (nums[i] == 0) {
+          t++;
+      } else {
+          if (nums[i + 1] - nums[i] == 1) {
+              continue;
+          } else if (nums[i + 1] == nums[i]) {
+              return false;
+          } else {
+              if (nums[i + 1] - nums[i] > t + 1) {
+                  return false;
+              } else {
+                  t = t - (nums[i + 1] - nums[i])
+              }
+          }
+      }
+  }
+  return true
+};

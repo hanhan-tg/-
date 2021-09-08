@@ -29,9 +29,7 @@ var lowestCommonAncestor = function (root, p, q) {
   }
 };
 var lowestCommonAncestor = function (root, p, q) {
-  // 遍历所有节点
-  // 假设q.val < q.val 如果 q.val < root.val < q.val 则返回true
-  // 即找到值为他们之间的点
+  // 迭代
   let minVal = p.val < q.val ? p.val : q.val;
   let maxVal = p.val > q.val ? p.val : q.val;
   while (true) {

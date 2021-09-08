@@ -36,39 +36,34 @@ var letterCombinations = function (digits) {
     }
     return queue;
 };
-var letterCombinations = function (digits) {
-    if(digits.length == 0) return [];
-    // 回溯------DFS
-    // 只要每种情况遍历一遍就行了，当长度和digits的长度相同说明就可以退出了，没有特别复杂的情况
+
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+ var letterCombinations = function (digits) {
+    if (digits.length == 0) return [];
     const hash = {
-        '2': ['a', 'b', 'c'],
-        '3': ['d', 'e', 'f'],
-        '4': ['g', 'h', 'i'],
-        '5': ['j', 'k', 'l'],
-        '6': ['m', 'n', 'o'],
-        '7': ['p', 'q', 'r', 's'],
-        '8': ['t', 'u', 'v'],
-        '9': ['w', 'x', 'y', 'z'],
+        2: 'abc',
+        3: 'def',
+        4: 'ghi',
+        5: 'jkl',
+        6: 'mno',
+        7: 'pqrs',
+        8: 'tuv',
+        9: 'wxyz',
     }
-
-    let res = [];
-    dfs('', 0);
-    return res;
-
-    function dfs(str, index) {
-        // 退出条件
-        if(index == digits.length){
+    const res = [];
+    const dfs = (index, str) => {
+        if (index >= digits.length) {
             res.push(str);
-            return ;
+            return;
         }
-        let arr = hash[digits[index]];
-        for (let j = 0; j < arr.length; j++) {
-            // 拼接字符串
-            str += arr[j];
-            
-            dfs(str, index + 1)
-            // 回溯
-            str = str.slice(0, str.length - 1);
+        const s = hash[digits[index]];
+        for (let i = 0; i < s.length; i++) {
+            dfs(index + 1, str + s[i]);
         }
     }
+    dfs(0, '');
+    return res;
 };
